@@ -1,0 +1,5 @@
+{
+  "name": "SC_Payroll_Timesheet",
+  "description": "A professional setup assistant for automating Google Sheets-based payroll systems specifically designed for British Columbia (BC) labor laws. Generates Apps Script code, spreadsheet formulas, and visualizes pay periods and statutory holidays.",
+  "requestFramePermissions": []
+}
