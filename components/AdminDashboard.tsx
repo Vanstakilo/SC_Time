@@ -182,9 +182,9 @@ const AdminDashboard: React.FC<Props> = ({ submissions, logs, selectedPeriod, on
         )}
       </div>
 
-      {/* ADD NEW STAFF SECTION - Re-positioned right above Audit Logs */}
-      <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500 flex justify-end">
-        <div className="inline-flex items-center gap-3 p-3 bg-white rounded-[28px] border border-slate-200 shadow-xl w-full max-w-xl">
+      {/* ADD NEW STAFF SECTION - Positioned right above Audit Logs */}
+      <div className="mb-10 flex justify-end">
+        <div className="inline-flex items-center gap-3 p-3 bg-white rounded-[28px] border border-slate-200 shadow-xl w-full max-w-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="w-12 h-12 bg-indigo-600 rounded-[20px] flex items-center justify-center text-white shadow-lg flex-shrink-0">
                 <i className="fa-solid fa-user-plus"></i>
             </div>
@@ -197,8 +197,8 @@ const AdminDashboard: React.FC<Props> = ({ submissions, logs, selectedPeriod, on
                         handleAddSubmit();
                     }
                 }}
-                placeholder="ENTER NEW STAFF NAME..." 
-                className="bg-slate-50 border-none focus:ring-2 focus:ring-indigo-100 rounded-xl text-xs font-black uppercase tracking-widest flex-1 placeholder:text-slate-300 text-slate-900 px-4 py-3"
+                placeholder="ADD NEW STAFF MEMBER..." 
+                className="bg-slate-50 border-none focus:ring-2 focus:ring-indigo-100 rounded-xl text-[10px] font-black uppercase tracking-widest flex-1 placeholder:text-slate-300 text-slate-900 px-4 py-3"
             />
             <button 
                 onClick={handleAddSubmit}

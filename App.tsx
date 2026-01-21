@@ -94,7 +94,7 @@ const App: React.FC = () => {
     setLogs(prev => [newLog, ...prev].slice(0, 150));
   }, []);
 
-  // Core Update Logic - Side effects moved OUTSIDE setSubmissions to prevent failure
+  // Core Update Logic
   const updatePeriodData = useCallback((empId: string, pKey: string, data: PeriodData, isSubmission: boolean = false) => {
     setSubmissions(prev => {
       const currentEmp = prev[empId];
@@ -112,13 +112,11 @@ const App: React.FC = () => {
     });
 
     if (isSubmission) {
-      setSubmissions(current => {
-        const empName = current[empId]?.empName || 'Staff';
-        addLog('staff_action', empName, 'Timesheet Submitted', `Period: ${pKey}`);
-        return current;
-      });
+      // Find name from existing state for logging
+      const empName = submissions[empId]?.empName || 'Staff';
+      addLog('staff_action', empName, 'Timesheet Submitted', `Period: ${pKey}`);
     }
-  }, [addLog]);
+  }, [addLog, submissions]);
 
   const handleAdminUpdate = useCallback((empId: string, pKey: string, data: PeriodData, actionName: string) => {
     setSubmissions(prev => {
@@ -136,12 +134,9 @@ const App: React.FC = () => {
       };
     });
 
-    setSubmissions(current => {
-      const empName = current[empId]?.empName || 'Staff';
-      addLog('admin_action', empName, actionName, `Period: ${pKey}`);
-      return current;
-    });
-  }, [addLog]);
+    const empName = submissions[empId]?.empName || 'Staff';
+    addLog('admin_action', empName, actionName, `Period: ${pKey}`);
+  }, [addLog, submissions]);
 
   const goHome = () => {
     setRole(null);

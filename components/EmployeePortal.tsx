@@ -37,7 +37,7 @@ const EmployeePortal: React.FC<Props> = ({ empName, periodData, selectedPeriod, 
     return result;
   }, [selectedPeriod, holidays]);
 
-  // Stage 2 (Submitted) and Stage 3 (Approved) are both LOCKED
+  // Stage 2 (Submitted) and Stage 3 (Approved) are both LOCKED for editing
   const isLocked = periodData.status === 'Submitted' || periodData.status === 'Approved';
 
   const handleInputChange = (dateStr: string, field: keyof TimeEntry, value: any) => {
@@ -109,9 +109,9 @@ const EmployeePortal: React.FC<Props> = ({ empName, periodData, selectedPeriod, 
             </div>
             <div className="space-y-2">
               <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tighter">Successfully Submitted</h2>
-              <p className="text-slate-500 font-medium">Your timesheet is now locked and awaiting manager approval.</p>
+              <p className="text-slate-500 font-medium">Your timesheet for this period is now locked and awaiting manager approval.</p>
             </div>
-            <button onClick={() => setShowSuccess(false)} className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl">Back to Overview</button>
+            <button onClick={() => setShowSuccess(false)} className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl">Back to Timesheet</button>
           </div>
         </div>
       )}
@@ -132,7 +132,7 @@ const EmployeePortal: React.FC<Props> = ({ empName, periodData, selectedPeriod, 
         {isLocked && (
           <div className={`px-6 py-4 text-center text-[10px] font-black uppercase tracking-[0.4em] flex items-center justify-center gap-4 animate-in slide-in-from-top duration-700 ${periodData.status === 'Approved' ? 'bg-green-600 text-white' : 'bg-amber-500 text-white'}`}>
              <i className={`fa-solid ${periodData.status === 'Approved' ? 'fa-circle-check' : 'fa-lock'} text-sm`}></i>
-             PERIOD {periodData.status.toUpperCase()} • {periodData.status === 'Approved' ? 'PAYROLL FINALIZED' : 'EDITING DISABLED'}
+             PERIOD {periodData.status.toUpperCase()} • {periodData.status === 'Approved' ? 'PAYROLL FINALIZED' : 'EDITING DISABLED FOR THIS PERIOD'}
           </div>
         )}
 
@@ -149,24 +149,40 @@ const EmployeePortal: React.FC<Props> = ({ empName, periodData, selectedPeriod, 
               </div>
             </div>
             
-            <div className="flex flex-wrap items-center gap-3 p-2 bg-slate-800 rounded-2xl border border-slate-700 backdrop-blur-md">
-               <select disabled={isLocked} value={selectedPeriod.year} onChange={(e) => onPeriodChange({...selectedPeriod, year: parseInt(e.target.value)})} className="bg-slate-800 border-none text-[10px] font-black uppercase tracking-widest px-4 py-2 focus:ring-0 text-indigo-400 cursor-pointer disabled:opacity-50 rounded-xl">
-                 <option className="bg-slate-800 text-white" value={2025}>2025</option>
-                 <option className="bg-slate-800 text-white" value={2026}>2026</option>
-               </select>
-               <div className="w-px h-5 bg-slate-700"></div>
-               <select disabled={isLocked} value={selectedPeriod.month} onChange={(e) => onPeriodChange({...selectedPeriod, month: parseInt(e.target.value)})} className="bg-slate-800 border-none text-[10px] font-black uppercase tracking-widest px-4 py-2 focus:ring-0 text-white cursor-pointer disabled:opacity-50 rounded-xl">
-                 {MONTHS.map((m, i) => <option className="bg-slate-800 text-white" key={m} value={i}>{m}</option>)}
-               </select>
-               <div className="w-px h-5 bg-slate-700"></div>
+            <div className="flex flex-wrap items-center gap-3 p-2 bg-indigo-950 rounded-2xl border border-indigo-900/50 backdrop-blur-md">
+               {/* PERIOD NAVIGATION: ALWAYS ENABLED */}
+               <div className="relative">
+                 <select 
+                   value={selectedPeriod.year} 
+                   onChange={(e) => onPeriodChange({...selectedPeriod, year: parseInt(e.target.value)})} 
+                   className="appearance-none bg-indigo-950 border-none text-[10px] font-black uppercase tracking-widest px-6 py-2 focus:ring-2 focus:ring-indigo-500 text-indigo-400 cursor-pointer rounded-xl block w-full text-center hover:bg-indigo-900 transition-colors"
+                 >
+                   <option className="bg-indigo-950 text-white" value={2025}>2025</option>
+                   <option className="bg-indigo-950 text-white" value={2026}>2026</option>
+                 </select>
+               </div>
+               <div className="w-px h-5 bg-indigo-900"></div>
+               <div className="relative">
+                 <select 
+                   value={selectedPeriod.month} 
+                   onChange={(e) => onPeriodChange({...selectedPeriod, month: parseInt(e.target.value)})} 
+                   className="appearance-none bg-indigo-950 border-none text-[10px] font-black uppercase tracking-widest px-6 py-2 focus:ring-2 focus:ring-indigo-500 text-white cursor-pointer rounded-xl block w-full text-center hover:bg-indigo-900 transition-colors"
+                 >
+                   {MONTHS.map((m, i) => (
+                     <option className="bg-indigo-950 text-white" key={m} value={i}>{m}</option>
+                   ))}
+                 </select>
+               </div>
+               <div className="w-px h-5 bg-indigo-900"></div>
                <div className="flex gap-1 px-1">
                  {(['1st', '2nd'] as PayHalf[]).map(h => (
-                   <button key={h} disabled={isLocked} onClick={() => onPeriodChange({...selectedPeriod, half: h})} className={`px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${selectedPeriod.half === h ? 'bg-indigo-600 text-white shadow-xl scale-110' : 'text-slate-500 hover:text-white'}`}>
+                   <button key={h} onClick={() => onPeriodChange({...selectedPeriod, half: h})} className={`px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${selectedPeriod.half === h ? 'bg-indigo-600 text-white shadow-xl scale-110' : 'text-slate-500 hover:text-white hover:bg-indigo-900'}`}>
                      {h} Half
                    </button>
                  ))}
                </div>
             </div>
+            <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Switch periods above to view or start other drafts</p>
           </div>
 
           <div className="flex flex-col items-center md:items-end">
