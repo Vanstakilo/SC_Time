@@ -221,7 +221,7 @@ const EmployeePortal: React.FC<Props> = ({ empName, periodData, selectedPeriod, 
         </div>
 
         {/* Entry Table */}
-        <div className={`overflow-x-auto overflow-y-hidden touch-pan-x transition-colors duration-500 ${isLocked ? 'bg-slate-50/70' : 'bg-white'}`}>
+        <div className={`overflow-x-auto transition-colors duration-500 ${isLocked ? 'bg-slate-50/70' : 'bg-white'}`}>
           <table className="w-full text-sm">
             <thead className="bg-slate-50 text-slate-400 font-black uppercase text-[10px] tracking-[0.25em] border-b border-slate-100">
               <tr>
