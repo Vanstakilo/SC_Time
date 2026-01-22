@@ -52,9 +52,9 @@ const AdminDashboard: React.FC<Props> = ({ submissions, logs, selectedPeriod, on
   const filteredLogs = (logs || []).filter(l => logTab === 'staff' ? l.type === 'staff_action' : l.type === 'admin_action');
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-6 animate-in fade-in duration-700">
+    <div className="max-w-7xl mx-auto py-6 px-4 md:py-12 md:px-6 animate-in fade-in duration-700">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-10">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6 md:gap-10">
         <div className="space-y-8">
           <div className="flex items-center gap-6">
             <div className="w-16 h-16 bg-slate-900 rounded-[24px] flex items-center justify-center text-white text-3xl shadow-2xl">
@@ -66,7 +66,7 @@ const AdminDashboard: React.FC<Props> = ({ submissions, logs, selectedPeriod, on
             </div>
           </div>
           
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 w-full md:w-auto">
             <div className="flex items-center gap-2 p-2 bg-white rounded-[24px] border border-slate-200 shadow-xl inline-flex">
               <select value={selectedPeriod.year} onChange={(e) => onPeriodChange({...selectedPeriod, year: parseInt(e.target.value)})} className="bg-transparent border-none text-[11px] font-black uppercase tracking-widest px-6 py-3 focus:ring-0 text-indigo-600 cursor-pointer">
                   <option value={2025}>2025</option><option value={2026}>2026</option>
@@ -87,8 +87,8 @@ const AdminDashboard: React.FC<Props> = ({ submissions, logs, selectedPeriod, on
       </div>
 
       {/* Staff Roll Call */}
-      <div className="bg-white rounded-[40px] shadow-2xl overflow-hidden border border-slate-100 mb-10">
-        <table className="w-full text-sm">
+      <div className="bg-white rounded-[20px] md:rounded-[40px] shadow-2xl overflow-x-auto border border-slate-100 mb-10">
+        <table className="w-full text-sm min-w-[800px]">
           <thead className="bg-slate-50 text-slate-400 font-black uppercase text-[10px] tracking-[0.3em] border-b border-slate-100">
             <tr>
               <th className="px-12 py-8 text-left">Staff Member</th>

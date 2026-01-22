@@ -137,7 +137,7 @@ const EmployeePortal: React.FC<Props> = ({ empName, periodData, selectedPeriod, 
         )}
 
         {/* Header */}
-        <div className="bg-slate-900 p-10 text-white flex flex-col md:flex-row justify-between items-center gap-10">
+        <div className="bg-slate-900 p-6 md:p-10 text-white flex flex-col md:flex-row justify-between items-center gap-6 md:gap-10">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 bg-indigo-600 rounded-[20px] flex items-center justify-center text-2xl shadow-lg border border-indigo-400/20">
@@ -149,7 +149,7 @@ const EmployeePortal: React.FC<Props> = ({ empName, periodData, selectedPeriod, 
               </div>
             </div>
             
-            <div className="flex flex-wrap items-center gap-3 p-2 bg-indigo-950 rounded-2xl border border-indigo-900/50 backdrop-blur-md">
+            <div className="flex flex-wrap justify-center md:justify-start items-center gap-3 p-2 bg-indigo-950 rounded-2xl border border-indigo-900/50 backdrop-blur-md">
                {/* PERIOD NAVIGATION: ALWAYS ENABLED */}
                <div className="relative">
                  <select 
@@ -221,7 +221,7 @@ const EmployeePortal: React.FC<Props> = ({ empName, periodData, selectedPeriod, 
         </div>
 
         {/* Entry Table */}
-        <div className={`overflow-x-auto transition-colors duration-500 ${isLocked ? 'bg-slate-50/70' : 'bg-white'}`}>
+        <div className={`overflow-x-auto overflow-y-hidden touch-pan-x transition-colors duration-500 ${isLocked ? 'bg-slate-50/70' : 'bg-white'}`}>
           <table className="w-full text-sm">
             <thead className="bg-slate-50 text-slate-400 font-black uppercase text-[10px] tracking-[0.25em] border-b border-slate-100">
               <tr>
